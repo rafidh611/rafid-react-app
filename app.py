@@ -1,10 +1,10 @@
 import os
 from flask import Flask, send_from_directory
 from flask_restful import Api, Resource, reqparse
-from flask_cors import CORS
+# from flask_cors import CORS
 
 app = Flask(__name__, static_folder='my-app/build', static_url_path='/')
-CORS(app)  # comment this on deployment
+# CORS(app)  # comment this on deployment
 # api = Api(app)
 
 

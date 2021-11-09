@@ -1,18 +1,27 @@
-import os
-from flask import Flask, send_from_directory
-from flask_restful import Api, Resource, reqparse
-# from flask_cors import CORS
+from flask import Flask, jsonify
+from flask.helpers import send_from_directory
+#from flask_cors import CORS for local test
 
-app = Flask(__name__, static_folder='my-app/build', static_url_path='/')
-# CORS(app)  # comment this on deployment
-# api = Api(app)
+app = Flask(__name__, static_folder="frontend/build", static_url_path="")
 
+# CORS(app) for local test
 
-@app.route("/", defaults={'path': ''})
-def serve(path):
-    return send_from_directory(app.static_folder, 'index.html')
+@app.route('/<string:name>',methods=['GET'])
+def hello_world(name):  # put my group names in as a "database"
+    if name=='Rafid':
+        return jsonify(
+            status=200,
+            message="Hasan"
+        )
+    else:
+        return jsonify(
+            status=404,
+            message="User Not Found"
+        )
 
+@app.route("/")
+def index():
+    return send_from_directory(app.static_folder, "index.html")
 
-if __name__ == "__main__":
-    app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    app.run(host="0.0.0.0")

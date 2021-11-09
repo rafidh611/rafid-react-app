@@ -1,22 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
 
 function App() {
+  const [name, setName] = React.useState("");
+  const [output, setOutput] = React.useState("");
+
+  const submitHandler = () => {
+    const url = "/" + name; //const url = "http://127.0.0.1:5000/" + name; <== for the local test  
+    console.log(url);
+    fetch(url)
+      .then((response) => response.json())
+      .then((jsondata) => setOutput(jsondata["message"]))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //frontend stuff
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+          Enter first name
+          </p>
+        <input onChange={(event) => setName(event.target.value)} />
+        <h1> </h1>
+        <button type="button" onClick={submitHandler}>
+          Get Last Name
+        </button>
+        <p>{output}</p>
       </header>
     </div>
   );
